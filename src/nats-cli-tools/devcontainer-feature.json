@@ -1,7 +1,8 @@
 {
-    "id": "natscli",
+    "id": "nats-cli-tools",
     "version": "0.0.1",
     "name": "NATS CLI Tools",
+    "documentationURL": "https://github.com/kmpm/my-features/tree/main/src/nats-cli-tools",
     "description": "Installs the NATS CLI tools, like nats and nsc, for interacting with NATS servers and clusters.",
     "options": {
         "cliVersion": {
