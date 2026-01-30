@@ -1,0 +1,14 @@
+{
+    "install_nats-cli-tools": {
+        "image": "ubuntu:noble",
+        "features": {
+            "nats-cli-tools": {  }
+        }
+    },
+    "install_nats-cli-tools_trixie": {
+        "image": "debian:trixie",
+        "features": {
+            "nats-cli-tools": {  }
+        }
+    }
+}
