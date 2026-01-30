@@ -1,0 +1,17 @@
+{
+    "id": "natscli",
+    "version": "0.0.1",
+    "name": "NATS CLI Tools",
+    "description": "Installs the NATS CLI tools, like nats and nsc, for interacting with NATS servers and clusters.",
+    "options": {
+        "cliVersion": {
+            "description": "The version of the NATS CLI to install.",
+            "type": "string",
+            "default": "latest",
+            "proposals": ["latest"]
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

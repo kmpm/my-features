@@ -1,0 +1,12 @@
+version = 1
+SPDX-PackageName = "my-features"
+SPDX-PackageSupplier = "Peter Magnusson"
+SPDX-PackageDownloadLocation = "https://github.com/kmpm/my-features"
+
+[[annotations]]
+path = [".devcontainer/devcontainer.json", ".vscode/launch.json"]
+SPDX-FileCopyrightText = [
+    "2022-2026 Microsoft Corporation",
+    "2026 Peter Magnusson"
+] 
+SPDX-License-Identifier = "MIT"
