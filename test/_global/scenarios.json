@@ -1,8 +1,0 @@
-{
-    "combination_1" : {
-        "image": "mcr.microsoft.com/devcontainers/base:debian",
-        "features": {
-            "nats-cli-tools": {}
-        }
-    }
-}
