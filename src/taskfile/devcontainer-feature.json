@@ -1,0 +1,8 @@
+{
+    "name": "Taskfile",
+    "id": "taskfile",
+    "documentationURL": "https://github.com/kmpm/my-features/src/taskfile",
+    "version": "1.0.0",
+    "description": "Taskfile is a A fast, cross-platform build tool inspired by Make, designed for modern workflows.",
+    "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
