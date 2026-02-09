@@ -1,0 +1,9 @@
+{
+    "install_mssql-odbc_trixie": {
+        "image": "debian:trixie",
+        "features": {
+            "mssql-odbc": {  }
+        }
+    }
+    
+}

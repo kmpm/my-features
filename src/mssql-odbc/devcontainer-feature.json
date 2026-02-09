@@ -1,0 +1,20 @@
+{
+    "id": "mssql-odbc",
+    "version": "0.0.1",
+    "name": "MSSQL ODBC Driver",
+    "documentationURL": "https://github.com/kmpm/my-features/tree/main/src/mssql-odbc",
+    "description": "Installs the MSSQL ODBC Driver for connecting to Microsoft SQL Server databases.",
+    "options": {
+        "driverVersion": {
+            "description": "The version of the MSSQL ODBC Driver to install.",
+            "type": "string",
+            "default": "18",
+            "proposals": [
+                "18"
+            ]
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}
