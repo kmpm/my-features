@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
+set -e
 
-OS_ID=$(grep ^ID /etc/os-release | cut -d '=' -f 2)
 
-# Only debian and ubuntu are supported
-if [ "${OS_ID}" != "debian" ] && [ "${OS_ID}" != "ubuntu" ];
+# get ID= and not ID_LIKE=, and trim quotes if they exist
+OS_ID=$(grep -E '^ID=' /etc/os-release | cut -d '=' -f 2)
+echo "Detected OS_ID: ${OS_ID}"
+
+# Only test OS_ID for valid strings
+if [[ "${OS_ID}" =~ ^(debian|ubuntu)$ ]];
 then
-    echo "This feature only supports Debian and Ubuntu based distributions.";
-    exit;
+    echo "Supported distribution detected: ${OS_ID}"
+else
+    echo "This feature only supports Debian and Ubuntu based distributions. Got '${OS_ID}'.";
+    exit 1;
 fi
 
 check_debian() {
     if ! [[ "9 10 11 12 13" == *"$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1)"* ]];
     then
         echo "Debian $(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1) is not currently supported.";
-        exit;
+        exit 1;
     fi
 }
 
@@ -21,11 +27,20 @@ check_ubuntu() {
     if ! [[ "18.04 20.04 22.04 24.04" == *"$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)"* ]];
     then
         echo "Ubuntu $(grep VERSION_ID /etc/os-release | cut -d '"' -f 2) is not currently supported.";
-        exit;
+        exit1 ;
     fi
 }
 
-OS_RELEASE=$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1)
+if [ "${OS_ID}" = "debian" ]; then
+    check_debian
+    OS_RELEASE=$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1)
+elif [ "${OS_ID}" = "ubuntu" ]; then
+    check_ubuntu
+    OS_RELEASE=$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)
+else
+    echo "This feature only supports Debian and Ubuntu based distributions. Got '${OS_ID}'.";
+    exit 1;
+fi
 
 
 if type apt-get > /dev/null 2>&1; then
@@ -96,8 +111,10 @@ check_packages() {
     fi
 }
 
-check_packages curl ca-certificates libodbcinst2 odbcinst unixodbc-common
+check_packages curl ca-certificates odbcinst unixodbc
 
+
+echo "Check ${OS_ID}/${OS_RELEASE}"
 # Download the package to configure the Microsoft repo
 curl -sSL -O https://packages.microsoft.com/config/$OS_ID/$OS_RELEASE/packages-microsoft-prod.deb
 # Install the package
@@ -105,8 +122,7 @@ dpkg -i packages-microsoft-prod.deb
 # Delete the file
 rm packages-microsoft-prod.deb
 
-
-pkg_mgr_update
+apt-get update -y
 ACCEPT_EULA=Y check_packages msodbcsql18 
 
 # optional: for unixODBC development headers, kerberos library for debian-slim distributions
