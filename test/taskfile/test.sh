@@ -6,12 +6,6 @@ source dev-container-features-test-lib
 
 # check "user is vscode" grep vscode <(whoami)
 
-bins=(
-    task
-)
-
-for bin in "${bins[@]}"; do
-    check "$bin" command -v "$bin"
-done
+check "task_version" task --version
 
 reportResults
